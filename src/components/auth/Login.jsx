@@ -16,9 +16,10 @@ export const Login = () => {
         if (foundUsers.length === 1) {
           const user = foundUsers[0];
           localStorage.setItem(
-            "capstone_user",
+            "app_user",
             JSON.stringify({
               id: user.id,
+              isRegisteredUser: true,
             })
           );
 
@@ -28,6 +29,15 @@ export const Login = () => {
         }
       });
   };
+
+  const guestUserClickHandler = () => {
+    localStorage.setItem(
+      "app_user",
+      JSON.stringify({
+        isRegisteredUser: false,
+      })
+    );
+  }
 
   return (
     <main className="container--login">
@@ -54,6 +64,10 @@ export const Login = () => {
       </section>
       <section className="link--register">
         <Link to="/register">Not a member yet?</Link>
+      </section>
+
+      <section className="link--guest--user" >
+        <Link to="/" onClick={guestUserClickHandler}>Continue Without Loging In</Link>
       </section>
     </main>
   );
