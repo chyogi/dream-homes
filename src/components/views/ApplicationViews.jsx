@@ -1,14 +1,17 @@
+import { GuestUserViews } from "./GuestUserViews";
+import { RegisteredUserViews } from "./RegisteredUserViews";
+
 export const ApplicationViews = () => {
   const appUser= localStorage.getItem("app_user");
   const appUserObject = JSON.parse(appUser);
 
   if (appUserObject.isRegisteredUser) {
-    return "<h1>Welcome Registered User!!</h1>";
+    return <RegisteredUserViews />;
     
   }
   else {
 
-    return "<h1>Welcome Guest User!!</h1>";
+    return <GuestUserViews />;
   }
 
   
