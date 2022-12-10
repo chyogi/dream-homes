@@ -1,0 +1,14 @@
+.floorplan--container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 1rem;
+}
+
+.floorplan--item {
+    margin: 1rem;
+    padding: 1rem
+}

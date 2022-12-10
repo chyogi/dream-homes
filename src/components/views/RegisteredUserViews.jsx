@@ -1,4 +1,6 @@
 import { Outlet, Route, Routes } from "react-router-dom";
+import { FloorPlans } from "../floorPlans/FloorPlans";
+import { FloorPlansList } from "../floorPlans/FloorPlansList";
 
 export const RegisteredUserViews = () => {
  return (
@@ -7,16 +9,17 @@ export const RegisteredUserViews = () => {
         path="/"
         element={
           <>
-            <h1>Welcome, Registered User</h1>
+            <h1>Welcome, Yogi</h1>
 
             <Outlet />
           </>
         }
       >
-        <Route path="account-home" element={<hi>account home</hi>} />
-        <Route path="floor-plans" element={<hi>floor plans</hi>} />
-        <Route path="about-us" element={<hi>about us</hi> } />
-        <Route path="profile" element={<hi>profile</hi>} />
+        <Route path="home" element={<h1>home</h1>} />
+        <Route path="floor-plans" element={<FloorPlansList />} />
+        <Route path="about-us" element={<h1>about us</h1> } />
+        <Route path="profile" element={<h1>profile</h1>} />
+         <Route path="custom-floor-plans" element={<h1> custom floor plan</h1>} />
       </Route>
     </Routes>
  
