@@ -45,7 +45,7 @@ export const FloorPlansList = () => {
         {
             floorPlanList.map((floorPlan) => {
                 return (
-                    <FloorPlans className="floorplan--item" key={floorPlan.id} props={floorPlan} />
+                    <FloorPlans className="floorplan--item" key={floorPlan.id} floorPlan={floorPlan} />
                         
 
                 

@@ -1,4 +1,7 @@
 import * as React from 'react';
+
+import { useNavigate } from "react-router-dom";
+
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -14,6 +17,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Button from '@mui/material/Button';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -26,7 +30,8 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export const FloorPlans = (props) =>  {
+export const FloorPlans = ({floorPlan}) =>  {
+    const navigate = useNavigate();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -41,42 +46,43 @@ export const FloorPlans = (props) =>  {
         //     R
         //   </Avatar>
         // }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={props.name}
-        subheader={props.Type}
+        // action={
+        //   <IconButton aria-label="settings">
+        //     <MoreVertIcon />
+        //   </IconButton>
+        // }
+        title={floorPlan.name}
+        subheader={floorPlan.type}
       />
       <CardMedia
         component="img"
         height="194"
-        image="https://cdn.houseplansservices.com/product/uf7ocaf1rkdrqq1k255n2creci/w1024.jpg?v=11"
+        image={floorPlan.titleImage}
         alt="Floor Plans"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-         The Graceland, another great addition to the Drees Universal Design lineup, boasts two stories of luxurious spaces and features. A convenient main-level owner's suite, first-floor laundry and a covered porch leads to a versatile gameroom, multiple additional bedrooms and some unfinished storage space.
-        </Typography>
+                 {floorPlan.description}
+                 </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="share">
+        {/* <IconButton aria-label="share">
           <ShareIcon />
-        </IconButton>
-        <ExpandMore
+        </IconButton> */}
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore>
+        </ExpandMore> */}
+        <Button size="small" onClick={()=>{navigate(`/floor-plans/${floorPlan.id}`,{state : {floorPlan}})}}>Learn More</Button>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Method:</Typography>
           <Typography paragraph>
@@ -104,7 +110,7 @@ export const FloorPlans = (props) =>  {
             Set aside off of the heat to let rest for 10 minutes, and then serve.
           </Typography>
         </CardContent>
-      </Collapse>
+      </Collapse> */}
     </Card>
   );
 }
