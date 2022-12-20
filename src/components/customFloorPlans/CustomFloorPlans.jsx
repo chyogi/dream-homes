@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -7,8 +7,41 @@ import IconButton from "@mui/material/IconButton";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useNavigate } from "react-router-dom";
 
-export default function CustomFloorPlans({ customFloorPlans }) {
+export default function CustomFloorPlans() {
   const navigate = useNavigate();
+
+  const [customFloorPlanList, setCustomFloorPlanList] = useState([]);
+  const [isRowDeleted, setIsRowDeleted] = useState(false);
+
+  const appUser = JSON.parse(localStorage.getItem("app_user"));
+
+  useEffect(
+    () => {
+      const fetchData = async () => {
+        const response = await fetch(
+          `http://localhost:8088/customFloorPlans?userId=${appUser.id}`
+        );
+        const customFloorPlanListFromApi = await response.json();
+        setCustomFloorPlanList(customFloorPlanListFromApi);
+      };
+      fetchData();
+    },
+    [] // When this array is empty, you are observing initial component state
+  );
+
+  useEffect(
+    () => {
+      const fetchData = async () => {
+        const response = await fetch(
+          `http://localhost:8088/customFloorPlans?userId=${appUser.id}`
+        );
+        const customFloorPlanListFromApi = await response.json();
+        setCustomFloorPlanList(customFloorPlanListFromApi);
+      };
+      fetchData();
+    },
+    [isRowDeleted] // When this array is empty, you are observing initial component state
+  );
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -114,6 +147,7 @@ export default function CustomFloorPlans({ customFloorPlans }) {
                 );
 
                 const responseFromApi = await response.json();
+                setIsRowDeleted(true);
                 navigate(`/custom-floor-plans`);
               };
 
@@ -130,7 +164,7 @@ export default function CustomFloorPlans({ customFloorPlans }) {
   return (
     <Box sx={{ height: 400, width: "100%", padding: "1rem" }}>
       <DataGrid
-        rows={customFloorPlans}
+        rows={customFloorPlanList}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

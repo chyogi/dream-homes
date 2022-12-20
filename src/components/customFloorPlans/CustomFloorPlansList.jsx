@@ -9,38 +9,21 @@ import "./CustomFloorPlans.css";
 import { Navigate } from "react-router-dom";
 
 export const CustomFloorPlansList = () => {
-    const navigate = useNavigate();
-  const [customFloorPlanList, setCustomFloorPlanList] = useState([]);
-
-  useEffect(
-    () => {
-      const fetchData = async () => {
-        const response = await fetch(`http://localhost:8088/customFloorPlans`);
-        const customFloorPlanListFromApi = await response.json();
-        setCustomFloorPlanList(customFloorPlanListFromApi);
-      };
-      fetchData();
-    },
-    [] // When this array is empty, you are observing initial component state
-  );
+  const navigate = useNavigate();
 
   return (
     <>
       <Box sx={{ width: "100%", textAlign: "center", padding: "1rem" }}>
-        {/* {customFloorPlanList.map((customFloorPlan) => {
-          return (
-            // <div
-            //   className="custom--floorplan--item"
-            //   key={customFloorPlan.id}
-            //   floorPlan={customFloorPlan}
-            // />
-            <div>{customFloorPlan.id}</div>
-          );
-        })} */}
-        <Button sx={{ backgroundColor: "#031f0a" }} variant="contained" onClick ={() => {navigate(`/custom-floor-plans/add`)}}>
+        <Button
+          sx={{ backgroundColor: "#031f0a" }}
+          variant="contained"
+          onClick={() => {
+            navigate(`/custom-floor-plans/add`);
+          }}
+        >
           Add New Custom Floor Plan
         </Button>
-        <CustomFloorPlans customFloorPlans={customFloorPlanList} />
+        <CustomFloorPlans />
       </Box>
     </>
   );
