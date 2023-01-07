@@ -16,7 +16,7 @@ export const DreamHomes = () => {
         element={
           <Authorized>
             <>
-            <NavBar /> 
+              <NavBar />
               <ApplicationViews />
             </>
           </Authorized>

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import "./Login.css";
 
 export const Login = () => {
@@ -19,11 +22,14 @@ export const Login = () => {
             "app_user",
             JSON.stringify({
               id: user.id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
               isRegisteredUser: true,
             })
           );
 
-          navigate("/");
+          navigate("/home");
         } else {
           window.alert("Invalid login");
         }
@@ -37,37 +43,72 @@ export const Login = () => {
         isRegisteredUser: false,
       })
     );
-  }
+  };
 
   return (
     <main className="container--login">
-      <section>
-        <form className="form--login" onSubmit={handleLogin}>
-          <h1>Dream Homes</h1>
-          <h2>Please sign in</h2>
-          <fieldset>
-            <label htmlFor="inputEmail"> Email address </label>
-            <input
+      <h1 className="app--header">
+        {" "}
+        <img
+          className="app--logo--title"
+          src="images/logo-2.png"
+          alt="company logo"
+        ></img>
+      </h1>
+      <section className="form--login">
+        <form onSubmit={handleLogin}>
+          <h4>Please sign in</h4>
+          <div className="form--item">
+            <TextField
               type="email"
-              value={email}
-              onChange={(evt) => set(evt.target.value)}
-              className="form-control"
-              placeholder="Email address"
               required
-              autoFocus
+              id="outlined-required"
+              label="Email"
+              InputLabelProps={{
+                style: { color: "#000000" },
+              }}
+              className="form-control"
+              onChange={(evt) => set(evt.target.value)}
+              defaultValue={email}
+              sx={{ width: "50vw", height: "auto" }}
             />
-          </fieldset>
-          <fieldset>
-            <button type="submit">Sign in</button>
-          </fieldset>
-        </form>
-      </section>
-      <section className="link--register">
-        <Link to="/register">Not a member yet?</Link>
-      </section>
+          </div>
 
-      <section className="link--guest--user" >
-        <Link to="/" onClick={guestUserClickHandler}>Continue Without Loging In</Link>
+          <div className="form--item">
+            <Button
+              sx={{
+                backgroundColor: "#80ed99",
+                width: "30%",
+                fontSize: "large",
+                fontWeight: "bold",
+                color: "#1f2421",
+                "&:hover": {
+                  background: "#9fffcb",
+                },
+              }}
+              type="submit"
+              variant="contained"
+            >
+              Sign in
+            </Button>
+          </div>
+        </form>
+
+        <section>
+          <Link className="link--register" to="/register">
+            Create an account
+          </Link>
+        </section>
+
+        {/* <section>
+          <Link
+            className="link--guest--user"
+            to="/"
+            onClick={guestUserClickHandler}
+          >
+            Continue Without Loging In
+          </Link>
+        </section> */}
       </section>
     </main>
   );

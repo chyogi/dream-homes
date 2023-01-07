@@ -1,0 +1,26 @@
+.floorplan--container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 1rem;
+}
+
+.floorplan--item {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.floor--plan--carousel {
+  padding: 1rem;
+  margin: 1rem;
+}
+.floor--plan--image {
+  height: 50vh;
+  width: 50vw;
+  background-color: rgb(7, 19, 1);
+  object-fit: contain;
+  padding: 1rem;
+}

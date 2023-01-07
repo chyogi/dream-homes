@@ -15,6 +15,11 @@ export default function CustomFloorPlans() {
 
   const appUser = JSON.parse(localStorage.getItem("app_user"));
 
+  const currencyFormatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+
   useEffect(
     () => {
       const fetchData = async () => {
@@ -44,64 +49,98 @@ export default function CustomFloorPlans() {
   );
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 50 },
     {
       field: "name",
       headerName: "Name",
-      width: 150,
+      width: 140,
+      headerAlign: "center",
+      align: "center",
+      renderHeader: () => <strong>{"Name"}</strong>,
     },
     {
       field: "type",
       headerName: "Type",
-      width: 150,
+      width: 140,
+      headerAlign: "center",
+      align: "center",
+      renderHeader: () => <strong>{"Type"}</strong>,
     },
     {
       field: "stories",
       headerName: "Stories",
       type: "number",
-      width: 110,
+      width: 80,
+      headerAlign: "center",
+      align: "center",
+      renderHeader: () => <strong>{"Stories"}</strong>,
     },
     {
       field: "sqFt",
       headerName: "Sq Ft",
       type: "number",
-      width: 110,
+      width: 80,
+      headerAlign: "center",
+      align: "center",
+      renderHeader: () => <strong>{"Sq Ft"}</strong>,
     },
     {
       field: "bedrooms",
       headerName: "Bedrooms",
       type: "number",
-      width: 110,
+      width: 100,
+      headerAlign: "center",
+      align: "center",
+      renderHeader: () => <strong>{"Bedrooms"}</strong>,
     },
     {
       field: "fullBaths",
       headerName: "Full Baths",
       type: "number",
-      width: 110,
+      width: 100,
+      headerAlign: "center",
+      align: "center",
+      renderHeader: () => <strong>{"Full Baths"}</strong>,
     },
     {
       field: "halfBaths",
       headerName: "Half Baths",
       type: "number",
-      width: 110,
+      width: 100,
+      headerAlign: "center",
+      align: "center",
+      renderHeader: () => <strong>{"Half Baths"}</strong>,
     },
     {
       field: "garage",
       headerName: "Garage",
       type: "number",
-      width: 110,
+      width: 100,
+      headerAlign: "center",
+      align: "center",
+      renderHeader: () => <strong>{"Garage"}</strong>,
     },
     {
       field: "isFav",
       headerName: "Fav?",
       type: "text",
-      width: 110,
+      width: 70,
+      headerAlign: "center",
+      align: "center",
+      renderHeader: () => <strong>{"Fav?"}</strong>,
     },
     {
       field: "price",
       headerName: "Price",
       type: "number",
-      width: 110,
+      width: 150,
+      headerAlign: "center",
+      renderHeader: () => <strong>{"Price"}</strong>,
+      valueGetter: (params) => {
+        return currencyFormatter.format(
+          isNaN(params.row.price) ? 0.0 : params.row.price
+        );
+      },
     },
     {
       field: "edit",
@@ -162,14 +201,38 @@ export default function CustomFloorPlans() {
   ];
 
   return (
-    <Box sx={{ height: 400, width: "100%", padding: "1rem" }}>
+    <Box
+      sx={{ height: 400, width: "100%", padding: "1rem", marginTop: "1rem" }}
+    >
       <DataGrid
         rows={customFloorPlanList}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        checkboxSelection
         disableSelectionOnClick
+        initialState={{
+          columns: { columnVisibilityModel: { id: false } },
+        }}
+        sx={{
+          borderColor: "#181f1c",
+          border: 2,
+          boxShadow: 2,
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: "#d8f3dc",
+            fontSize: "1rem",
+            fontWeight: "bolder",
+          },
+          "& .MuiDataGrid-columnSeparator": {
+            color: "#181f1c",
+          },
+          "& .MuiDataGrid-row:hover": {
+            backgroundColor: "#f1f7ee",
+            fontSize: "1.25rem",
+            fontWeight: "bold",
+          },
+          bgcolor: "background.paper",
+          overflow: "auto",
+        }}
       />
     </Box>
   );

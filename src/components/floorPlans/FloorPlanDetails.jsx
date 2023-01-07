@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -19,50 +19,77 @@ const Item = styled(Paper)(({ theme }) => ({
 
 //https://www.floorplans.com/plan/2455-square-feet-3-bedroom-2-00-bathroom-2-garage-country-traditional-sp303180
 
-const itemData = [
-  {
-    img: "https://cdn.houseplansservices.com/product/umjjl0g7a8obgu2a12bcliotj8/w800x533.jpg?v=2",
-    title: "PLAN 1064-234",
-  },
-  {
-    img: "https://cdn.houseplansservices.com/product/umjjl0g7a8obgu2a12bcliotj8/w800x533.jpg?v=2",
-    title: "PLAN 1064-234",
-  },
-  {
-    img: "https://cdn.houseplansservices.com/product/kulvhumrr2fd1074jbq51bvsvu/w800x533.jpg?v=2",
-    title: "PLAN 1064-234",
-  },
-  {
-    img: "https://cdn.houseplansservices.com/product/8n40ip7boqrdsj9v0hg7pf1ch7/w800x533.jpg?v=2",
-    title: "PLAN 1064-234",
-  },
-  {
-    img: "https://cdn.houseplansservices.com/product/ic64c6br9o33ph3mfdde676cd/w800x533.jpg?v=2",
-    title: "PLAN 1064-234",
-  },
-  {
-    img: "https://cdn.houseplansservices.com/product/44q3t0fq2pk5l8uh4o4e950dna/w600.jpg?v=2",
-    title: "Floor Plan - Main Floor",
-  },
-  {
-    img: "https://cdn.houseplansservices.com/product/rg79r3mj0sr60q20a9aumi568m/w600.jpg?v=2",
-    title: "Floor Plan - Lower Floor",
-  },
-];
+// const itemData = [
+//   {
+//     img: "https://cdn.houseplansservices.com/product/umjjl0g7a8obgu2a12bcliotj8/w800x533.jpg?v=2",
+//     title: "PLAN 1064-234",
+//   },
+//   {
+//     img: "https://cdn.houseplansservices.com/product/umjjl0g7a8obgu2a12bcliotj8/w800x533.jpg?v=2",
+//     title: "PLAN 1064-234",
+//   },
+//   {
+//     img: "https://cdn.houseplansservices.com/product/kulvhumrr2fd1074jbq51bvsvu/w800x533.jpg?v=2",
+//     title: "PLAN 1064-234",
+//   },
+//   {
+//     img: "https://cdn.houseplansservices.com/product/8n40ip7boqrdsj9v0hg7pf1ch7/w800x533.jpg?v=2",
+//     title: "PLAN 1064-234",
+//   },
+//   {
+//     img: "https://cdn.houseplansservices.com/product/ic64c6br9o33ph3mfdde676cd/w800x533.jpg?v=2",
+//     title: "PLAN 1064-234",
+//   },
+//   {
+//     img: "https://cdn.houseplansservices.com/product/44q3t0fq2pk5l8uh4o4e950dna/w600.jpg?v=2",
+//     title: "Floor Plan - Main Floor",
+//   },
+//   {
+//     img: "https://cdn.houseplansservices.com/product/rg79r3mj0sr60q20a9aumi568m/w600.jpg?v=2",
+//     title: "Floor Plan - Lower Floor",
+//   },
+// ];
 
 export default function FloorPlanDetails() {
   const { floorPlanId } = useParams();
   const { state } = useLocation();
   const [index, setIndex] = useState(0);
+  const [floorPlanImages, setFloorPlanImages] = useState([]);
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
 
+  useEffect(
+    () => {
+      const fetchData = async () => {
+        const response = await fetch(
+          `http://localhost:8088/FloorPlanImages?readyToGoFloorPlanId=${floorPlanId}`
+        );
+        const floorPlanImagesFromAPI = await response.json();
+        console.log(floorPlanImagesFromAPI);
+        setFloorPlanImages(floorPlanImagesFromAPI);
+      };
+      fetchData();
+    },
+    [] // When this array is empty, you are observing initial component state
+  );
+
   return (
-    <Box sx={{ width: "100%" }}>
-      <Typography sx={{ textAlign: "center" }} variant="h3" gutterBottom>
+    <Box sx={{ width: "100%", height: "100%", background: "#f1f7ee" }}>
+      <Typography
+        sx={{ textAlign: "center", padding: "1rem" }}
+        variant="h3"
+        gutterBottom
+      >
         {state.floorPlan.name}
+      </Typography>
+      <Typography
+        sx={{ textAlign: "center", padding: "1rem" }}
+        variant="body1"
+        gutterBottom
+      >
+        {state.floorPlan.description}
       </Typography>
       <Box sx={{ width: "50%", marginLeft: "25%" }}>
         <Grid
@@ -126,8 +153,8 @@ export default function FloorPlanDetails() {
         activeIndex={index}
         onSelect={handleSelect}
       >
-        {itemData.map((item) => (
-          <Carousel.Item>
+        {floorPlanImages.map((item) => (
+          <Carousel.Item key={item.id}>
             <img
               className="d-block w-100 floor--plan--image"
               src={item.img}

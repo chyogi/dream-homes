@@ -5,6 +5,11 @@ import { EditCustomFloorPlan } from "../customFloorPlans/EditCustomFloorPlan";
 import FloorPlanDetails from "../floorPlans/FloorPlanDetails";
 import { FloorPlans } from "../floorPlans/FloorPlans";
 import { FloorPlansList } from "../floorPlans/FloorPlansList";
+import { Home } from "../home/Home";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import { AboutUs } from "../home/AboutUs";
+import Profile from "../profile/Profile";
 
 export const RegisteredUserViews = () => {
   return (
@@ -12,17 +17,38 @@ export const RegisteredUserViews = () => {
       <Route
         path="/"
         element={
-          <>
-            <h1>Welcome to Dream Homes</h1>
+          <Box>
+            <Box>
+              <Outlet />
+            </Box>
 
-            <Outlet />
-          </>
+            <Box
+              sx={{
+                // marginTop: "10vh",
+                height: "10vh",
+                backgroundColor: "#0d0a0b",
+                color: "#ffffff",
+              }}
+            >
+              <Typography
+                variant="caption"
+                gutterBottom
+                sx={{
+                  textAlign: "center",
+                  marginLeft: "40%",
+                  marginTop: "50%",
+                }}
+              >
+                © 2022 Dream Homes. All Rights Reserved.
+              </Typography>
+            </Box>
+          </Box>
         }
       >
-        <Route path="home" element={<h1>home</h1>} />
+        <Route path="home" element={<Home />} />
         <Route path="floor-plans" element={<FloorPlansList />} />
-        <Route path="about-us" element={<h1>about us</h1>} />
-        <Route path="profile" element={<h1>profile</h1>} />
+        <Route path="about-us" element={<AboutUs />} />
+        <Route path="profile" element={<Profile />} />
         <Route path="custom-floor-plans" element={<CustomFloorPlansList />} />
         <Route
           path="custom-floor-plans/add"

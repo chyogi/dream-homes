@@ -1,30 +1,26 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./NavBar.css";
- import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
 
-
-export const RegisteredUserNav = () =>{
-    const navigate = useNavigate();
+export const RegisteredUserNav = () => {
+  const navigate = useNavigate();
   const appUser = JSON.parse(localStorage.getItem("app_user"));
- 
 
-const pages = ['Floor Plans', 'Custom Floor Plans', 'About Us'];
-const settings = ['Profile',  'Logout'];
-
-
+  const pages = ["Floor Plans", "Custom Floor Plans", "About Us"];
+  const settings = ["Profile", "Logout"];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -45,7 +41,7 @@ const settings = ['Profile',  'Logout'];
   };
 
   return (
-    <AppBar position="static" sx={{backgroundColor:"#3a5a40"}}>
+    <AppBar position="static" sx={{ backgroundColor: "#3a5a40" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
@@ -56,18 +52,22 @@ const settings = ['Profile',  'Logout'];
             href="/home"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
             }}
           >
-            Dream Homes
+            <img
+              className="logo--img"
+              src="images/logo-2.png"
+              alt="company logo"
+            ></img>
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -82,22 +82,27 @@ const settings = ['Profile',  'Logout'];
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={() =>{navigate(`/${page.replaceAll(` `, `-`).toLowerCase()}`)}}>
+                <MenuItem
+                  key={page}
+                  onClick={() => {
+                    navigate(`/${page.replaceAll(` `, `-`).toLowerCase()}`);
+                  }}
+                >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -111,23 +116,25 @@ const settings = ['Profile',  'Logout'];
             href=""
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
             }}
           >
             Dream Homes
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={() =>{navigate(`/${page.replaceAll(` `,`-`).toLowerCase()}`)}}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                onClick={() => {
+                  navigate(`/${page.replaceAll(` `, `-`).toLowerCase()}`);
+                }}
+                sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
               </Button>
@@ -137,27 +144,39 @@ const settings = ['Profile',  'Logout'];
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Yogi" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt={appUser.firstName}
+                  src="/static/images/avatar/2.jpg"
+                />
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={() =>{navigate(`/${setting.toLowerCase()}`)}}>
+                <MenuItem
+                  key={setting}
+                  onClick={() => {
+                    if (setting.toLowerCase() === "logout") {
+                      localStorage.clear();
+                      navigate(`/`);
+                    }
+                    navigate(`/${setting.toLowerCase()}`);
+                  }}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
@@ -167,52 +186,49 @@ const settings = ['Profile',  'Logout'];
       </Container>
     </AppBar>
   );
-}
+};
 
+// return (
+//     <>
 
+//    <ul className="navbar">
+//   <li className="navbar__item active">
+//     <Link className="navbar__link" to="/account-home">
+//       Home
+//     </Link>
+//   </li>
+//   <li className="navbar__item active">
+//     <Link className="navbar__link" to="/floor-plans">
+//       Floor Plans
+//     </Link>
+//   </li>
+//   <li className="navbar__item active">
+//     <Link className="navbar__link" to="/about-us">
+//       About Us
+//     </Link>
+//   </li>
+//   <li className="navbar__item active">
+//     <Link className="navbar__link" to="/profile">
+//       Profile
+//     </Link>
+//   </li>
+//   {appUser ? (
+//     <li className="navbar__item navbar__logout">
+//       <Link
+//         className="navbar__link"
+//         to=""
+//         onClick={() => {
+//           localStorage.removeItem("app_user");
+//           navigate("/", { replace: true });
+//         }}
+//       >
+//         Logout
+//       </Link>
+//     </li>
+//   ) : (
+//     ""
+//   )}
+// </ul>
 
-    // return ( 
-    //     <>
-
-    //    <ul className="navbar">
-    //   <li className="navbar__item active">
-    //     <Link className="navbar__link" to="/account-home">
-    //       Home
-    //     </Link>
-    //   </li>
-    //   <li className="navbar__item active">
-    //     <Link className="navbar__link" to="/floor-plans">
-    //       Floor Plans
-    //     </Link>
-    //   </li>
-    //   <li className="navbar__item active">
-    //     <Link className="navbar__link" to="/about-us">
-    //       About Us
-    //     </Link>
-    //   </li>
-    //   <li className="navbar__item active">
-    //     <Link className="navbar__link" to="/profile">
-    //       Profile
-    //     </Link>
-    //   </li>
-    //   {appUser ? (
-    //     <li className="navbar__item navbar__logout">
-    //       <Link
-    //         className="navbar__link"
-    //         to=""
-    //         onClick={() => {
-    //           localStorage.removeItem("app_user");
-    //           navigate("/", { replace: true });
-    //         }}
-    //       >
-    //         Logout
-    //       </Link>
-    //     </li>
-    //   ) : (
-    //     ""
-    //   )}
-    // </ul>
-
-        
-    //     </>
-    // )}
+//     </>
+// )}
